@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resumify - Servicios Académicos Universitarios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #2563eb; /* Azul para confianza */
+            --secondary-color: #1e40af; /* Azul oscuro */
+            --accent-color: #f97316; /* Naranja para acción */
+            --success-color: #34d399; /* Verde para tranquilidad */
+            --text-primary: #111827; /* Texto principal */
+            --text-secondary: #6b7280; /* Texto secundario */
+            --text-light: #9ca3af; /* Texto claro */
+            --background: #ffffff; /* Fondo blanco */
+            --card-background: #ffffff; /* Fondo de las cards */
+            --border-color: #e5e7eb; /* Color de borde */
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+                0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        header {
+            background: var(--background);
+            padding: 4rem 0 3rem 0;
+            text-align: center;
+        }
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .tagline {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+        .subtitle {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            background: #f8fafc;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .services-section {
+            padding: 4rem 0;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .service-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-color);
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .service-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        .service-features li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        .service-features li::before {
+            content: '✓';
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            margin-top: 0.125rem;
+            font-size: 0.625rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .cta-button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
+        }
+        .cta-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+        .cta-button:active {
+            transform: translateY(0);
+        }
+        .limitations {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        .limitations-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .limitations-list {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .limitations-list li {
+            margin-bottom: 0.5rem;
+        }
+        .contact-section {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 1.5rem;
+            margin: 4rem 0;
+            border: 1px solid var(--border-color);
+        }
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .contact-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .whatsapp-button {
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .whatsapp-button:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .logo {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .service-card {
+                padding: 1.5rem;
+            }
+            .contact-section {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Resumify</div>
+            <div class="subtitle">✨ Trabajos universitarios de pregrado</div>
+            <div class="tagline">Apoyo académico confiable para estudiantes universitarios. Trabajos de calidad para materias humanísticas, sociales y carreras no numéricas.</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="services-section">
+            <h2 class="section-title">Servicios Disponibles</h2>
+            <p class="section-description">Ofrezco apoyo especializado en diferentes tipos de trabajos académicos para estudiantes de pregrado</p>
+
+            <div class="services-grid">
+                <!-- Investigaciones Básicas -->
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3 class="service-title">Investigaciones Básicas</h3>
+                    <p class="service-description">
+                        Realizo investigaciones académicas básicas para apoyar tus trabajos universitarios con fuentes confiables.
+                    </p>
+                    <ul class="service-features">
+                        <li>Investigación en fuentes académicas</li>
+                        <li>Recopilación de información relevante</li>
+                        <li>Organización temática del material</li>
+                        <li>Solo para carreras no numéricas</li>
+                    </ul>
+                    <button class="cta-button">Solicitar Investigación</button>
+                </div>
+
+                <!-- Búsqueda de Información -->
+                <div class="service-card">
+                    <div class="service-icon">📚</div>
+                    <h3 class="service-title">Búsqueda de Información</h3>
+                    <p class="service-description">
+                        Búsqueda especializada de información y fuentes específicas para complementar tus trabajos académicos.
+                    </p>
+                    <ul class="service-features">
+                        <li>Búsqueda en bases de datos</li>
+                        <li>Localización de fuentes específicas</li>
+                        <li>Verificación de información</li>
+                        <li>Entrega organizada y clasificada</li>
+                    </ul>
+                    <button class="cta-button">Buscar Información</button>
+                </div>
+
+                <!-- Redacción de Ensayos -->
+                <div class="service-card">
+                    <div class="service-icon">✍️</div>
+                    <h3 class="service-title">Redacción de Ensayos</h3>
+                    <p class="service-description">
+                        Redacción de ensayos académicos universitarios con estructura adecuada y contenido original.
+                    </p>
+                    <ul class="service-features">
+                        <li>Ensayos argumentativos y expositivos</li>
+                        <li>Estructura académica apropiada</li>
+                        <li>Contenido original y bien fundamentado</li>
+                        <li>Solo nivel pregrado</li>
+                    </ul>
+                    <button class="cta-button">Encargar Ensayo</button>
+                </div>
+
+                <!-- Monografías -->
+                <div class="service-card">
+                    <div class="service-icon">📖</div>
+                    <h3 class="service-title">Monografías</h3>
+                    <p class="service-description">
+                        Elaboración de monografías universitarias con investigación, desarrollo temático y referencias apropiadas.
+                    </p>
+                    <ul class="service-features">
+                        <li>Desarrollo de tema específico</li>
+                        <li>Investigación bibliográfica</li>
+                        <li>Estructura académica formal</li>
+                        <li>Referencias y bibliografía</li>
+                    </ul>
+                    <button class="cta-button">Solicitar Monografía</button>
+                </div>
+
+                <!-- Presentaciones -->
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Presentaciones Personalizadas</h3>
+                    <p class="service-description">
+                        Creación de presentaciones visuales para exposiciones académicas, basadas en plantillas si lo prefieres.
+                    </p>
+                    <ul class="service-features">
+                        <li>Diseño visual atractivo</li>
+                        <li>Basadas en plantillas disponibles</li>
+                        <li>Para exposiciones universitarias</li>
+                        <li>Formato PowerPoint o Google Slides</li>
+                    </ul>
+                    <button class="cta-button">Crear Presentación</button>
+                </div>
+
+                <!-- Resúmenes -->
+                <div class="service-card">
+                    <div class="service-icon">📝</div>
+                    <h3 class="service-title">Resúmenes</h3>
+                    <p class="service-description">
+                        Elaboración de resúmenes claros y concisos de textos académicos, libros o documentos extensos.
+                    </p>
+                    <ul class="service-features">
+                        <li>Extracción de ideas principales</li>
+                        <li>Síntesis clara y organizada</li>
+                        <li>Diferentes extensiones disponibles</li>
+                        <li>Formato fácil de estudiar</li>
+                    </ul>
+                    <button class="cta-button">Solicitar Resumen</button>
+                </div>
+
+                <!-- Formato APA -->
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3 class="service-title">Formato APA</h3>
+                    <p class="service-description">
+                        Aplicación de normas APA a documentos existentes y corrección de formato en trabajos académicos.
+                    </p>
+                    <ul class="service-features">
+                        <li>Normas APA 7ma edición</li>
+                        <li>Corrección de citas y referencias</li>
+                        <li>Formato de títulos y subtítulos</li>
+                        <li>Revisión de estructura general</li>
+                    </ul>
+                    <button class="cta-button">Aplicar Formato APA</button>
+                </div>
+            </div>
+
+            <div class="limitations">
+                <h3 class="limitations-title">ℹ️ Información Importante</h3>
+                <ul class="limitations-list">
+                    <li><strong>Nivel académico:</strong> Solo trabajos de pregrado universitario</li>
+                    <li><strong>Materias:</strong> No realizo trabajos de matemáticas, estadística, contabilidad, física, química u otras materias numéricas</li>
+                    <li><strong>Especialización:</strong> Enfocada en carreras humanísticas, sociales y de letras</li>
+                    <li><strong>Calidad:</strong> Trabajos elaborados con dedicación y responsabilidad académica</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="contact-section">
+            <h2 class="contact-title">¿Necesitas ayuda con algún trabajo?</h2>
+            <p class="contact-subtitle">Contáctame por WhatsApp para conversar sobre tu proyecto y obtener una cotización personalizada</p>
+            <a href="https://wa.me/51938157562?text=Hola%20Resumify%2C%20necesito%20ayuda%20con%20un%20trabajo%20universitario" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+                📱 Escribir por WhatsApp
+            </a>
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-6px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceTitle = this.closest('.service-card').querySelector('.service-title').textContent;
+                const message = `Hola! Me interesa el servicio de: ${serviceTitle}. ¿Podrías darme más información y una cotización?`;
+                const whatsappUrl = `https://wa.me/51938157562?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -20px 0px'
+        };
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.service-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
+

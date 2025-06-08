@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resumify - Catálogo de Servicios Académicos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --background: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --nav-bg: #f9fafb;
+      --accent-color: #2563eb;
+      --accent-hover: #1e40af;
+      --button-bg: #111827;
+      --button-text: #ffffff;
+      --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --border-radius: 0.75rem;
+      --transition-fast: 0.2s ease;
+      max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      font-size: 18px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--nav-bg);
+      box-shadow: var(--shadow-light);
+      z-index: 100;
+    }
+
+    nav {
+      max-width: var(--max-width, 1200px);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      letter-spacing: -0.02em;
+    }
+
+    /* Simple nav items placeholder on right */
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-hover);
+      transition: color var(--transition-fast);
+    }
+
+    main {
+      flex: 1;
+      max-width: var(--max-width, 1200px);
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero h1 {
+      font-weight: 800;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero .cta-button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-light);
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .hero .cta-button:hover,
+    .hero .cta-button:focus {
+      background: var(--accent-color);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .card {
+      background: var(--background);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+      padding: 2rem;
+      transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+      transform: translateY(-6px);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      flex-grow: 1;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .card-features {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-features li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .card-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      box-shadow: 0 0 5px rgba(37, 99, 235, 0.6);
+      transform: translateY(-50%);
+    }
+
+    /* Card Buttons */
+    .card-button {
+      margin-top: auto;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--border-radius);
+      background-color: var(--accent-color);
+      color: var(--button-text);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .card-button:hover,
+    .card-button:focus {
+      background-color: var(--button-bg);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    /* Important info section */
+    .info-section {
+      max-width: 760px;
+      margin: 3rem auto 0;
+      background: #f9fafb;
+      border-radius: var(--border-radius);
+      padding: 2rem 2.5rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      box-shadow: var(--shadow-light);
+    }
+
+    .info-section h2 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .info-section ul {
+      margin-left: 1.5rem;
+      list-style-type: disc;
+    }
+
+    /* Footer / Contact Section */
+    footer {
+      margin-top: auto;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+      max-width: var(--max-width, 1200px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer h2 {
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+
+    footer p {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+
+    footer .whatsapp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: #25d366;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 1rem 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 12px rgba(37, 211, 102, 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+    }
+
+    footer .whatsapp-link:hover,
+    footer .whatsapp-link:focus {
+      background-color: #128c7e;
+      outline: none;
+      transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 1rem;
+      }
+
+      main {
+        padding: 3rem 1.5rem 5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Principal">
+      <div class="logo" tabindex="0">Resumify</div>
+      <div class="nav-links" role="navigation" aria-label="Navegación principal">
+        <a href="#services" tabindex="0">Servicios</a>
+        <a href="#contact" tabindex="0">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" role="region" aria-labelledby="hero-title">
+      <h1 id="hero-title">Catálogo de Servicios Académicos Universitarios</h1>
+      <p>Apoyo confiable y profesional para estudiantes universitarios de pregrado en carreras humanísticas y sociales.</p>
+      <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" aria-label="Contactar por WhatsApp">Contáctame</button>
+    </section>
+
+    <section id="services" class="services-grid" role="region" aria-label="Listado de servicios">
+      <article class="card" tabindex="0" aria-labelledby="investigaciones-title">
+        <div class="card-icon" aria-hidden="true">🔍</div>
+        <h2 id="investigaciones-title" class="card-title">Investigaciones Básicas</h2>
+        <p class="card-description">Realizo investigaciones académicas básicas para apoyar tus trabajos universitarios con fuentes confiables.</p>
+        <ul class="card-features">
+          <li>Investigación en fuentes académicas</li>
+          <li>Recopilación de información relevante</li>
+          <li>Organización temática del material</li>
+          <li>Solo para carreras no numéricas</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Investigaciones Básicas">Solicitar Investigación</button>
+      </article>
+
+      <article class="card" tabindex="0" aria-labelledby="busqueda-title">
+        <div class="card-icon" aria-hidden="true">📚</div>
+        <h2 id="busqueda-title" class="card-title">Búsqueda de Información</h2>
+        <p class="card-description">Búsqueda especializada de información y fuentes específicas para complementar tus trabajos académicos.</p>
+        <ul class="card-features">
+          <li>Búsqueda en bases de datos</li>
+          <li>Localización de fuentes específicas</li>
+          <li>Verificación de información</li>
+          <li>Entrega organizada y clasificada</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Búsqueda de Información">Buscar Información</button>
+      </article>
+
+      <article class="card" tabindex="0" aria-labelledby="ensayos-title">
+        <div class="card-icon" aria-hidden="true">✍️</div>
+        <h2 id="ensayos-title" class="card-title">Redacción de Ensayos</h2>
+        <p class="card-description">Redacción de ensayos académicos universitarios con estructura adecuada y contenido original.</p>
+        <ul class="card-features">
+          <li>Ensayos argumentativos y expositivos</li>
+          <li>Estructura académica apropiada</li>
+          <li>Contenido original y bien fundamentado</li>
+          <li>Solo nivel pregrado</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Redacción de Ensayos">Encargar Ensayo</button>
+      </article>
+
+      <article class="card" tabindex="0" aria-labelledby="monografias-title">
+        <div class="card-icon" aria-hidden="true">📖</div>
+        <h2 id="monografias-title" class="card-title">Monografías</h2>
+        <p class="card-description">Elaboración de monografías universitarias con investigación, desarrollo temático y referencias apropiadas.</p>
+        <ul class="card-features">
+          <li>Desarrollo de tema específico</li>
+          <li>Investigación bibliográfica</li>
+          <li>Estructura académica formal</li>
+          <li>Referencias y bibliografía</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Monografías">Solicitar Monografía</button>
+      </article>
+
+      <article class="card" tabindex="0" aria-labelledby="presentaciones-title">
+        <div class="card-icon" aria-hidden="true">📊</div>
+        <h2 id="presentaciones-title" class="card-title">Presentaciones Personalizadas</h2>
+        <p class="card-description">Creación de presentaciones visuales para exposiciones académicas, basadas en plantillas si lo prefieres.</p>
+        <ul class="card-features">
+          <li>Diseño visual atractivo</li>
+          <li>Basadas en plantillas disponibles</li>
+          <li>Para exposiciones universitarias</li>
+          <li>Formato PowerPoint o Google Slides</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Presentaciones Personalizadas">Crear Presentación</button>
+      </article>
+
+      <article class="card" tabindex="0" aria-labelledby="resumenes-title">
+        <div class="card-icon" aria-hidden="true">📝</div>
+        <h2 id="resumenes-title" class="card-title">Resúmenes</h2>
+        <p class="card-description">Elaboración de resúmenes claros y concisos de textos académicos, libros o documentos extensos.</p>
+        <ul class="card-features">
+          <li>Extracción de ideas principales</li>
+          <li>Síntesis clara y organizada</li>
+          <li>Diferentes extensiones disponibles</li>
+          <li>Formato fácil de estudiar</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Resúmenes">Solicitar Resumen</button>
+      </article>
+
+      <article class="card" tabindex="0" aria-labelledby="apa-title">
+        <div class="card-icon" aria-hidden="true">📋</div>
+        <h2 id="apa-title" class="card-title">Formato APA</h2>
+        <p class="card-description">Aplicación de normas APA a documentos existentes y corrección de formato en trabajos académicos.</p>
+        <ul class="card-features">
+          <li>Normas APA 7ma edición</li>
+          <li>Corrección de citas y referencias</li>
+          <li>Formato de títulos y subtítulos</li>
+          <li>Revisión de estructura general</li>
+        </ul>
+        <button class="card-button" aria-label="Solicitar servicio de Formato APA">Aplicar Formato APA</button>
+      </article>
+    </section>
+
+    <section class="info-section" aria-label="Información importante">
+      <h2>Información Importante</h2>
+      <ul>
+        <li><strong>Nivel académico:</strong> Solo trabajos de pregrado universitario.</li>
+        <li><strong>Materias:</strong> No realizo trabajos de matemáticas, estadística, contabilidad, física, química u otras materias numéricas.</li>
+        <li><strong>Especialización:</strong> Enfocada en carreras humanísticas, sociales y de letras.</li>
+        <li><strong>Calidad:</strong> Trabajos elaborados con dedicación y responsabilidad académica.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer id="contact" role="contentinfo" aria-label="Sección de contacto">
+    <h2>¿Necesitas ayuda con algún trabajo?</h2>
+    <p>Contáctame por WhatsApp para conversar sobre tu proyecto y obtener una cotización personalizada.</p>
+    <a href="https://wa.me/51938157562?text=Hola%20Resumify%2C%20necesito%20ayuda%20con%20un%20trabajo%20universitario" class="whatsapp-link" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+      📱 Escribir por WhatsApp
+    </a>
+  </footer>
+
+  <script>
+    // Añadir funcionalidad a los botones de los cards para abrir WhatsApp con mensaje predefinido
+    document.querySelectorAll('.card-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.card');
+        const service = card.querySelector('.card-title').textContent.trim();
+        const url = `https://wa.me/51938157562?text=${encodeURIComponent(
+          'Hola! Me interesa el servicio de: ' + service + '. ¿Podrías darme más información y una cotización?'
+        )}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+    });
+  </script>
+</body>
+</html>
+
