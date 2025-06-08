@@ -254,6 +254,13 @@
       list-style-type: disc;
     }
 
+    /* New section for time requirements */
+    .time-requirements {
+      margin-top: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
     /* Footer / Contact Section */
     footer {
       margin-top: auto;
@@ -442,6 +449,10 @@
         <li><strong>Especialización:</strong> Enfocada en carreras humanísticas, sociales y de letras.</li>
         <li><strong>Calidad:</strong> Trabajos elaborados con dedicación y responsabilidad académica.</li>
       </ul>
+      <div class="time-requirements">
+        <h3>Tiempo de Entrega</h3>
+        <p>Es importante solicitar los trabajos con suficiente antelación. Los plazos cortos pueden afectar la calidad y el costo del servicio.</p>
+      </div>
     </section>
   </main>
 
@@ -454,18 +465,4 @@
   </footer>
 
   <script>
-    // Añadir funcionalidad a los botones de los cards para abrir WhatsApp con mensaje predefinido
-    document.querySelectorAll('.card-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const card = button.closest('.card');
-        const service = card.querySelector('.card-title').textContent.trim();
-        const url = `https://wa.me/51938157562?text=${encodeURIComponent(
-          'Hola! Me interesa el servicio de: ' + service + '. ¿Podrías darme más información y una cotización?'
-        )}`;
-        window.open(url, '_blank', 'noopener,noreferrer');
-      });
-    });
-  </script>
-</body>
-</html>
-
+    // Añadir
