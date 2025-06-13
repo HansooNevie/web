@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -69,7 +70,6 @@
       letter-spacing: -0.02em;
     }
 
-    /* Simple nav items placeholder on right */
     .nav-links {
       display: flex;
       gap: 1.5rem;
@@ -91,7 +91,6 @@
       width: 100%;
     }
 
-    /* Hero Section */
     .hero {
       text-align: center;
       margin-bottom: 4rem;
@@ -134,7 +133,6 @@
       transform: translateY(-2px);
     }
 
-    /* Services Grid */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -208,7 +206,6 @@
       transform: translateY(-50%);
     }
 
-    /* Card Buttons */
     .card-button {
       margin-top: auto;
       padding: 0.75rem 1.5rem;
@@ -229,7 +226,6 @@
       transform: translateY(-2px);
     }
 
-    /* Important info section */
     .info-section {
       max-width: 760px;
       margin: 3rem auto 0;
@@ -254,14 +250,12 @@
       list-style-type: disc;
     }
 
-    /* New section for time requirements */
     .time-requirements {
       margin-top: 1.5rem;
       color: var(--text-secondary);
       font-size: 0.95rem;
     }
 
-    /* Footer / Contact Section */
     footer {
       margin-top: auto;
       background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
@@ -310,7 +304,6 @@
       transform: translateY(-3px);
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
       nav {
         padding: 0 1rem;
@@ -459,10 +452,42 @@
   <footer id="contact" role="contentinfo" aria-label="Sección de contacto">
     <h2>¿Necesitas ayuda con algún trabajo?</h2>
     <p>Contáctame por WhatsApp para conversar sobre tu proyecto y obtener una cotización personalizada.</p>
-    <a href="https://wa.me/51938157562?text=Hola%20Resumify%2C%20necesito%20ayuda%20con%20un%20trabajo%20universitario" class="whatsapp-link" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <a href="https://wa.me/51965138551?text=Hola%20Resumify%2C%20necesito%20ayuda%20con%20un%20trabajo%20universitario" class="whatsapp-link" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
       📱 Escribir por WhatsApp
     </a>
   </footer>
 
   <script>
-    // Añadir
+    // Añadir funcionalidad a los botones de los cards para abrir WhatsApp con mensaje predefinido
+    document.querySelectorAll('.card-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.card');
+        const service = card.querySelector('.card-title').textContent.trim();
+        const url = `https://wa.me/51965138551?text=${encodeURIComponent(
+          'Hola! Me interesa el servicio de: ' + service + '. ¿Podrías darme más información y una cotización?'
+        )}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+    });
+
+    // Aplicar animación a las cards
+    document.querySelectorAll('.card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+      
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
+
